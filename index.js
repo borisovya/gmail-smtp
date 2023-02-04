@@ -35,6 +35,7 @@ app.post('/s', async function (req, res) {
         <div> Phone: ${number}</div>
         <div> Message: ${message}</div>`
     });
+    res.send('Message has been send!')
 })
 
 app.listen(port, () => {
