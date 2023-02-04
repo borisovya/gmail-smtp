@@ -26,8 +26,18 @@ let transporter = nodemailer.createTransport({
     },
 });
 
-app.get('/', (req, res) => {
-    res.send('Server has been started!')
+app.get('/', async (req, res) => {
+    let {email, number, message} = req.query
+    await transporter.sendMail({
+        from: '"Someone who needs you 👻"', // sender address
+        to: "vladimirborisovalexandrovich@gmail.com", // list of receivers
+        subject: "Portfolio page request ✔", // Subject line
+        html: `<b> Portfolio page request Congrats! </b>
+        <div> From: ${email}</div>
+        <div> Phone: ${number}</div>
+        <div> Message: ${message}</div>`
+    });
+    res.send('Message has been sent!')
 })
 
 const message = express.Router()
