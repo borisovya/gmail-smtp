@@ -3,14 +3,14 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3010
+const port = process.env.PORT || 3010
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-let login = login
-let pass = pass
+let login = process.env.LOGIN || '--'
+let pass = process.env.PASS || '--'
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -35,8 +35,6 @@ app.post('/s', async function (req, res) {
         <div> Phone: ${number}</div>
         <div> Message: ${message}</div>`
     });
-    res.send(req.body)
-
 })
 
 app.listen(port, () => {
