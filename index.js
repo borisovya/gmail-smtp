@@ -30,7 +30,8 @@ app.get('/', (req, res) => {
     res.send('Server has been started!')
 })
 
-app.post('/s', async function (req, res) {
+const message = express.Router()
+message.post('/s', async (req, res) => {
     let {email, number, message} = req.body
     await transporter.sendMail({
         from: '"Someone who needs you 👻"', // sender address
@@ -41,8 +42,22 @@ app.post('/s', async function (req, res) {
         <div> Phone: ${number}</div>
         <div> Message: ${message}</div>`
     });
-    res.send('Message has been send!')
+    res.send('Message has been sent!')
 })
+app.use('/', message)
+// app.post('/s', async (req, res) => {
+//     let {email, number, message} = req.body
+//     await transporter.sendMail({
+//         from: '"Someone who needs you 👻"', // sender address
+//         to: "vladimirborisovalexandrovich@gmail.com", // list of receivers
+//         subject: "Portfolio page request ✔", // Subject line
+//         html: `<b> Portfolio page request Congrats! </b>
+//         <div> From: ${email}</div>
+//         <div> Phone: ${number}</div>
+//         <div> Message: ${message}</div>`
+//     });
+//     res.send('Message has been sent!')
+// })
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
